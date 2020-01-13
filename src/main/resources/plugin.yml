@@ -1,0 +1,7 @@
+name: InterestingFish
+main: net.shotbow.interestingfish.InterestingFish
+version: 1.0
+author: lazertester
+website: http://shotbow.net
+description: >
+             InterestingFish, gives fishes names and weight.
