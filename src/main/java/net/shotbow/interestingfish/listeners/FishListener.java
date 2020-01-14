@@ -16,6 +16,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * User: Austin
@@ -30,6 +31,7 @@ public class FishListener implements Listener
     private final DecimalFormat decimalFormat = new DecimalFormat("0.00");
     private FishInfoFactory fishInfoFactory;
     private InterestingConfig config;
+    private Random random = new Random();
 
     public FishListener(FishInfoFactory fishInfoFactory, InterestingConfig config)
     {
@@ -43,16 +45,19 @@ public class FishListener implements Listener
     {
         if (e.getCaught() instanceof Item && Tag.ITEMS_FISHES.isTagged(((Item) e.getCaught()).getItemStack().getType()))
         {
-            final String name = e.getPlayer().getName();
-            final FishInfo fishInfo = fishInfoFactory.makeNewFishInfo();
-            final ItemStack fish = ((Item) e.getCaught()).getItemStack();
-            ItemUtility.renameItem(fish, fishInfo.getName());
-            ItemUtility.setLore(fish, new ArrayList<String>()
-            {{
-                add(replaceColorChars(config.weightLabel) + decimalFormat.format(fishInfo.getWeight()) + replaceColorChars(config.weightUnit));
-                add(replaceColorChars(config.caughtByLabel) + name);
-                add(replaceColorChars(config.dateLabel) + dateFormat.format(new Date()));
-            }});
+            if (random.nextInt(100) < config.percentBreedsChance)
+            {
+                final String name = e.getPlayer().getName();
+                final FishInfo fishInfo = fishInfoFactory.makeNewFishInfo();
+                final ItemStack fish = ((Item) e.getCaught()).getItemStack();
+                ItemUtility.renameItem(fish, fishInfo.getName());
+                ItemUtility.setLore(fish, new ArrayList<String>()
+                {{
+                    add(replaceColorChars(config.weightLabel) + decimalFormat.format(fishInfo.getWeight()) + replaceColorChars(config.weightUnit));
+                    add(replaceColorChars(config.caughtByLabel) + name);
+                    add(replaceColorChars(config.dateLabel) + dateFormat.format(new Date()));
+                }});
+            }
         }
     }
 
