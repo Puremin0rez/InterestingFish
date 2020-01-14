@@ -3,8 +3,8 @@ package net.shotbow.interestingfish.utility;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
@@ -33,9 +33,13 @@ public class ItemUtility
         item.setItemMeta(meta);
     }
 
-    public static boolean fishingRodHasLuck(Player player)
+    public static boolean fishingRodHasLuck(PlayerInventory inventory)
     {
-        final ItemStack item = player.getInventory().getItemInMainHand();
+        ItemStack item = inventory.getItemInMainHand();
+        if (item.getType() != Material.FISHING_ROD)
+        {
+            item = inventory.getItemInOffHand();
+        }
         if (item.getType() == Material.FISHING_ROD)
         {
             if (item.hasItemMeta())
