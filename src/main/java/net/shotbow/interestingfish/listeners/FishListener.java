@@ -39,7 +39,7 @@ public class FishListener implements Listener {
     @EventHandler
     public void onFish(PlayerFishEvent e)
     {
-        if(e.getCaught() instanceof Item && ((Item) e.getCaught()).getItemStack().getType() == Material.RAW_FISH)
+        if(e.getCaught() instanceof Item && ((Item) e.getCaught()).getItemStack().getType() == Material.COD)
         {
             final String name = e.getPlayer().getName();
             final FishInfo fishInfo = fishInfoFactory.makeNewFishInfo();

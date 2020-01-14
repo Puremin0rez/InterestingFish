@@ -1,6 +1,7 @@
 name: InterestingFish
 main: net.shotbow.interestingfish.InterestingFish
-version: 1.0
+version: "1.15"
+api-version: "1.15"
 author: lazertester
 website: http://shotbow.net
 description: >

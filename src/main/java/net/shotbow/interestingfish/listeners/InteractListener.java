@@ -31,7 +31,7 @@ public class InteractListener implements Listener {
         if(e.getRightClicked() instanceof ItemFrame)
         {
             final ItemStack item = ((ItemFrame) e.getRightClicked()).getItem();
-            if(item != null && item.getType() == Material.RAW_FISH && !e.getPlayer().isSneaking())
+            if(item != null && item.getType() == Material.COD && !e.getPlayer().isSneaking())
             {
                 e.setCancelled(true);
                 final Player player = e.getPlayer();
