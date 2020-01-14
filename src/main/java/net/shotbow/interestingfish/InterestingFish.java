@@ -30,6 +30,6 @@ public class InterestingFish extends JavaPlugin
         final FishInfoFactory fishInfoFactory = new FishInfoFactory(config);
         Bukkit.getPluginManager().registerEvents(new FishListener(fishInfoFactory, config), this);
         Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
-        log("lazertester's InterestingFish is enabled!");
+        log("InterestingFish is enabled!");
     }
 }

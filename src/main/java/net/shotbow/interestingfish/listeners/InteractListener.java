@@ -1,6 +1,6 @@
 package net.shotbow.interestingfish.listeners;
 
-import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +24,7 @@ public class InteractListener implements Listener
         if (e.getRightClicked() instanceof ItemFrame)
         {
             final ItemStack item = ((ItemFrame) e.getRightClicked()).getItem();
-            if (item != null && item.getType() == Material.COD && !e.getPlayer().isSneaking())
+            if (item != null && Tag.ITEMS_FISHES.isTagged(item.getType()) && !e.getPlayer().isSneaking())
             {
                 e.setCancelled(true);
                 final Player player = e.getPlayer();

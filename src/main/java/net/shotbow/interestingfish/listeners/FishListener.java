@@ -5,7 +5,7 @@ import net.shotbow.interestingfish.config.InterestingConfig;
 import net.shotbow.interestingfish.objects.FishInfo;
 import net.shotbow.interestingfish.utility.ItemUtility;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -41,7 +41,7 @@ public class FishListener implements Listener
     @EventHandler
     public void onFish(PlayerFishEvent e)
     {
-        if (e.getCaught() instanceof Item && ((Item) e.getCaught()).getItemStack().getType() == Material.COD)
+        if (e.getCaught() instanceof Item && Tag.ITEMS_FISHES.isTagged(((Item) e.getCaught()).getItemStack().getType()))
         {
             final String name = e.getPlayer().getName();
             final FishInfo fishInfo = fishInfoFactory.makeNewFishInfo();
