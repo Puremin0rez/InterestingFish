@@ -45,6 +45,8 @@ public class FishListener implements Listener
     {
         if (e.getCaught() instanceof Item && Tag.ITEMS_FISHES.isTagged(((Item) e.getCaught()).getItemStack().getType()))
         {
+            if (config.requireLuckEnchant && !ItemUtility.fishingRodHasLuck(e.getPlayer()))
+                return;
             if (random.nextInt(100) < config.percentBreedsChance)
             {
                 final String name = e.getPlayer().getName();

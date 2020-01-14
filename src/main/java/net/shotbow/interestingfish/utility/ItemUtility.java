@@ -1,6 +1,9 @@
 package net.shotbow.interestingfish.utility;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,5 +31,18 @@ public class ItemUtility
         ItemMeta meta = item.getItemMeta();
         meta.setLore(lore);
         item.setItemMeta(meta);
+    }
+
+    public static boolean fishingRodHasLuck(Player player)
+    {
+        final ItemStack item = player.getInventory().getItemInMainHand();
+        if (item.getType() == Material.FISHING_ROD)
+        {
+            if (item.hasItemMeta())
+            {
+                return item.getItemMeta().hasEnchant(Enchantment.LUCK);
+            }
+        }
+        return false;
     }
 }
