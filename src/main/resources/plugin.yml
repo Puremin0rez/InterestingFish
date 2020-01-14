@@ -1,8 +1,7 @@
-name: InterestingFish
-main: net.shotbow.interestingfish.InterestingFish
-version: "1.15"
+name: "${project.name}"
+main: "${project.groupId}.${project.artifactId}.${project.name}"
+version: "${project.version}"
 api-version: "1.15"
-author: lazertester
-website: http://shotbow.net
-description: >
-  InterestingFish, gives fishes names and weight.
+authors: ["lazertester", "Puremin0rez"]
+website: "https://github.com/Puremin0rez/InterestingFish"
+description: "InterestingFish, gives fishes names and weight."
