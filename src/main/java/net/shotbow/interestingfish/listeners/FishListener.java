@@ -23,14 +23,16 @@ import java.util.Date;
  * Time: 1:34 AM
  * (c) lazertester
  */
-public class FishListener implements Listener {
+public class FishListener implements Listener
+{
 
-    private FishInfoFactory fishInfoFactory;
-    private InterestingConfig config;
     private final SimpleDateFormat dateFormat;
     private final DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    private FishInfoFactory fishInfoFactory;
+    private InterestingConfig config;
 
-    public FishListener(FishInfoFactory fishInfoFactory, InterestingConfig config) {
+    public FishListener(FishInfoFactory fishInfoFactory, InterestingConfig config)
+    {
         this.fishInfoFactory = fishInfoFactory;
         this.config = config;
         dateFormat = new SimpleDateFormat(config.dateFormat);
@@ -39,13 +41,14 @@ public class FishListener implements Listener {
     @EventHandler
     public void onFish(PlayerFishEvent e)
     {
-        if(e.getCaught() instanceof Item && ((Item) e.getCaught()).getItemStack().getType() == Material.COD)
+        if (e.getCaught() instanceof Item && ((Item) e.getCaught()).getItemStack().getType() == Material.COD)
         {
             final String name = e.getPlayer().getName();
             final FishInfo fishInfo = fishInfoFactory.makeNewFishInfo();
             final ItemStack fish = ((Item) e.getCaught()).getItemStack();
-            ItemUtility.renameItem(fish,fishInfo.getName());
-            ItemUtility.setLore(fish, new ArrayList<String>(){{
+            ItemUtility.renameItem(fish, fishInfo.getName());
+            ItemUtility.setLore(fish, new ArrayList<String>()
+            {{
                 add(replaceColorChars(config.weightLabel) + decimalFormat.format(fishInfo.getWeight()) + replaceColorChars(config.weightUnit));
                 add(replaceColorChars(config.caughtByLabel) + name);
                 add(replaceColorChars(config.dateLabel) + dateFormat.format(new Date()));
@@ -54,7 +57,8 @@ public class FishListener implements Listener {
     }
 
 
-    private String replaceColorChars(String text) {
+    private String replaceColorChars(String text)
+    {
         return text.replace('&', ChatColor.COLOR_CHAR);
     }
 }

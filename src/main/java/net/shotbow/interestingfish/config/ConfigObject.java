@@ -13,29 +13,36 @@ import java.util.Map;
 // Shamelessly stolen and adapted from md_5's BungeeCord project,
 // https://github.com/ElasticPortalSuite/BungeeCord
 // cause he is a badass.
-public abstract class ConfigObject {
+public abstract class ConfigObject
+{
     private transient File file;
     private transient Yaml yaml;
     private transient Map<String, Object> config;
 
-    protected ConfigObject(String path, String fileName) {
+    protected ConfigObject(String path, String fileName)
+    {
         new File(path).mkdir();
-        file = new File(path , fileName);
+        file = new File(path, fileName);
     }
 
-    public void initialize() {
+    public void initialize()
+    {
         DumperOptions options = new DumperOptions();
         options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         yaml = new Yaml(options);
 
-        try {
+        try
+        {
             InputStream is = new FileInputStream(file);
             config = (Map) yaml.load(is);
-        } catch (IOException ignored) {}
+        }
+        catch (IOException ignored)
+        {
+        }
 
         if (config == null)
         {
-            config = new LinkedHashMap<String,Object>();
+            config = new LinkedHashMap<String, Object>();
         }
         for (Field field : getClass().getDeclaredFields())
         {
@@ -48,17 +55,23 @@ public abstract class ConfigObject {
                     Object value = get(name, def);
                     setField(field, value);
 
-                } catch (IllegalAccessException ex){
+                }
+                catch (IllegalAccessException ex)
+                {
                     InterestingFish.log(getClass().getSimpleName() + ": Unable to initialize");
                 }
             }
         }
     }
 
-    protected void setField(Field field, Object value) {
-        try {
+    protected void setField(Field field, Object value)
+    {
+        try
+        {
             field.set(this, value);
-        } catch (IllegalAccessException e) {
+        }
+        catch (IllegalAccessException e)
+        {
             e.printStackTrace();
         }
     }
@@ -83,17 +96,24 @@ public abstract class ConfigObject {
                 try
                 {
                     config.put(name, field.get(this));
-                } catch (IllegalAccessException ex){}
+                }
+                catch (IllegalAccessException ex)
+                {
+                }
             }
         }
         try
         {
             FileWriter wr = new FileWriter(file);
             yaml.dump(config, wr);
-        } catch (IOException ex){}
+        }
+        catch (IOException ex)
+        {
+        }
     }
 
-    public void delete() {
+    public void delete()
+    {
         file.delete();
     }
 }

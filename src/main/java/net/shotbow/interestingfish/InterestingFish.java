@@ -12,12 +12,14 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Time: 12:43 AM
  * (c) lazertester
  */
-public class InterestingFish extends JavaPlugin{
+public class InterestingFish extends JavaPlugin
+{
 
 
     private InterestingConfig config;
 
-    public static void log(String message) {
+    public static void log(String message)
+    {
         Bukkit.getLogger().info("[InterestingFish] " + message);
     }
 
@@ -26,8 +28,8 @@ public class InterestingFish extends JavaPlugin{
         config = new InterestingConfig(getDataFolder().getPath());
         config.initialize();
         final FishInfoFactory fishInfoFactory = new FishInfoFactory(config);
-        Bukkit.getPluginManager().registerEvents(new FishListener(fishInfoFactory,config),this);
-        Bukkit.getPluginManager().registerEvents(new InteractListener(),this);
+        Bukkit.getPluginManager().registerEvents(new FishListener(fishInfoFactory, config), this);
+        Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
         log("lazertester's InterestingFish is enabled!");
     }
 }
