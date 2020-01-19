@@ -26,6 +26,7 @@ public class InterestingConfig extends ConfigObject
     public String weightLabel = "&bWeight: &f";
     public String weightUnit = "lbs";
     public String caughtByLabel = "&6Caught by: &f";
+    public boolean caughtByNickname = false;
     public String dateLabel = "&6";
     public String dateFormat = "MM/dd/yy hh:mm";
     public List<HashMap<String, Object>> descriptorList = new ArrayList<HashMap<String, Object>>()

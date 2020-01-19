@@ -50,7 +50,7 @@ public class FishListener implements Listener
                 return;
             if (random.nextInt(100) < config.percentBreedsChance)
             {
-                final String name = e.getPlayer().getName();
+                final String name = config.caughtByNickname ? e.getPlayer().getDisplayName() : e.getPlayer().getName();
                 final FishInfo fishInfo = fishInfoFactory.makeNewFishInfo();
                 final ItemStack fish = ((Item) e.getCaught()).getItemStack();
                 ItemUtility.renameItem(fish, fishInfo.getName());
