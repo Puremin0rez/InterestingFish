@@ -17,6 +17,9 @@ This is a list of everything that has been altered from the original from a user
 * Updated to Minecraft 1.15 (to properly support 1.13 flattening)
 * Added a configurable chance for breeds (and therefore, interesting fish)
 * Added a configurable option to require luck of the sea enchant on a fishing rod to catch interesting fish
+* Added a configurable option to exclude luck of the sea enchant on a fishing rod to catch interesting fish
+* Added a configurable option to use player nickname instead of username on fish labels
+* Added a configurable option to show fish label when right clicking an item frame
 
 Note that due to the flawed configuration system of the plugin, any new config options will reset your existing config.
 Therefore, your existing configs are not directly compatible with this continuation. You can simply merge the new options
