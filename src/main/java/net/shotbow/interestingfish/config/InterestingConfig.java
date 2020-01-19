@@ -23,6 +23,7 @@ public class InterestingConfig extends ConfigObject
     public double percentBreedsChance = 100.0;
     public boolean requireLuckEnchant = false;
     public boolean excludeLuckEnchant = false;
+    public boolean showItemFrameInfo = true;
     public String weightLabel = "&bWeight: &f";
     public String weightUnit = "lbs";
     public String caughtByLabel = "&6Caught by: &f";

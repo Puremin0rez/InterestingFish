@@ -29,7 +29,7 @@ public class InterestingFish extends JavaPlugin
         config.initialize();
         final FishInfoFactory fishInfoFactory = new FishInfoFactory(config);
         Bukkit.getPluginManager().registerEvents(new FishListener(fishInfoFactory, config), this);
-        Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InteractListener(config), this);
         log("InterestingFish is enabled!");
     }
 }

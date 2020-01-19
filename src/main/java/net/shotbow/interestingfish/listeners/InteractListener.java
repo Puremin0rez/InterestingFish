@@ -1,5 +1,6 @@
 package net.shotbow.interestingfish.listeners;
 
+import net.shotbow.interestingfish.config.InterestingConfig;
 import org.bukkit.Tag;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
@@ -17,11 +18,17 @@ import org.bukkit.inventory.ItemStack;
 public class InteractListener implements Listener
 {
 
+    private InterestingConfig config;
+
+    public InteractListener(InterestingConfig config)
+    {
+        this.config = config;
+    }
 
     @EventHandler
     public void onFish(PlayerInteractEntityEvent e)
     {
-        if (e.getRightClicked() instanceof ItemFrame)
+        if (config.showItemFrameInfo && e.getRightClicked() instanceof ItemFrame)
         {
             final ItemStack item = ((ItemFrame) e.getRightClicked()).getItem();
             if (item != null && Tag.ITEMS_FISHES.isTagged(item.getType()) && !e.getPlayer().isSneaking())
