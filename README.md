@@ -1,6 +1,6 @@
 # InterestingFish
 
-**Compatible with Minecraft 1.13+ (Tested on Minecraft 1.15)**
+**Compatible with Minecraft 1.13+ (Tested on Minecraft 1.16)**
 
 This is a continuation / maintained version of the original plugin created by lazertester from the Shotbow network.
 The original has not been updated since 2013.
@@ -14,7 +14,7 @@ behavior.
 ## What's different?
 
 This is a list of everything that has been altered from the original from a users perspective:
-* Updated to Minecraft 1.15 (to properly support 1.13 flattening)
+* Updated to Minecraft 1.16 (to properly support 1.13 flattening)
 * Added a configurable chance for breeds (and therefore, interesting fish)
 * Added a configurable option to require luck of the sea enchant on a fishing rod to catch interesting fish
 * Added a configurable option to exclude luck of the sea enchant on a fishing rod to catch interesting fish
