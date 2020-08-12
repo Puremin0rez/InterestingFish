@@ -1,6 +1,6 @@
 # InterestingFish
 
-**Compatible with Minecraft 1.13+ (Tested on Minecraft 1.16)**
+**Compatible with Minecraft 1.13+ (Tested on Minecraft 1.16.2)**
 
 This is a continuation / maintained version of the original plugin created by lazertester from the Shotbow network.
 The original has not been updated since 2013.
