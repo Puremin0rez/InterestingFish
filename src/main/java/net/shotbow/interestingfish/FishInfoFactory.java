@@ -1,5 +1,7 @@
 package net.shotbow.interestingfish;
 
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.shotbow.interestingfish.config.InterestingConfig;
 import net.shotbow.interestingfish.objects.Breed;
 import net.shotbow.interestingfish.objects.Descriptor;
@@ -29,6 +31,9 @@ public class FishInfoFactory
     private Random random = new Random();
     private InterestingConfig config;
 
+    private final MiniMessage miniMessage = MiniMessage.get();
+    private final LegacyComponentSerializer legacyHexSerializer = LegacyComponentSerializer.builder().hexColors().useUnusualXRepeatedCharacterHexFormat().build();
+
     public FishInfoFactory(InterestingConfig config)
     {
         this.config = config;
@@ -55,20 +60,20 @@ public class FishInfoFactory
         if (random.nextInt(100) < config.percentDescriptorChance)
         {
             Descriptor descriptor = descriptorIndex.get(weightedDescriptors.get(random.nextInt(weightedDescriptors.size())));
-            nameBuilder.append(replaceColorChars(descriptor.getText())).append(" ");
+            nameBuilder.append(parseColors(descriptor.getText())).append(ChatColor.RESET).append(" ");
             weight += descriptor.getMinWeightModifier() + random.nextDouble() * descriptor.getMaxWeightModifier() - descriptor.getMinWeightModifier();
         }
         Breed breed = breedIndex.get(weightedBreeds.get(random.nextInt(weightedBreeds.size())));
         weight += breed.getMinWeightModifier() + random.nextDouble() * breed.getMaxWeightModifier() - breed.getMinWeightModifier();
-        nameBuilder.append(replaceColorChars(breed.getText()));
+        nameBuilder.append(parseColors(breed.getText()));
         if (weight < config.minWeight)
             weight = config.minWeight;
         return new FishInfo(nameBuilder.toString(), weight);
     }
 
-    private String replaceColorChars(String text)
+    public String parseColors(String text)
     {
-        return text.replace('&', ChatColor.COLOR_CHAR);
+        return legacyHexSerializer.serialize(miniMessage.parse(text.replace('&', ChatColor.COLOR_CHAR)));
     }
 
 }
