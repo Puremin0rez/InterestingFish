@@ -1,6 +1,6 @@
 # InterestingFish
 
-**Compatible with Minecraft 1.13+ (Tested on Minecraft 1.16.2)**
+**Compatible with Minecraft 1.13+ (Tested on Minecraft 1.16.3)**
 
 This is a continuation / maintained version of the original plugin created by lazertester from the Shotbow network.
 The original has not been updated since 2013.
@@ -20,6 +20,7 @@ This is a list of everything that has been altered from the original from a user
 * Added a configurable option to exclude luck of the sea enchant on a fishing rod to catch interesting fish
 * Added a configurable option to use player nickname instead of username on fish labels
 * Added a configurable option to show fish label when right clicking an item frame
+* Added [MiniMessage support](https://docs.adventure.kyori.net/minimessage.html#format) so that you can use fancy effects and full RGB color for fish descriptors and breeds
 
 Note that due to the flawed configuration system of the plugin, any new config options will reset your existing config.
 Therefore, your existing configs are not directly compatible with this continuation. You can simply merge the new options
