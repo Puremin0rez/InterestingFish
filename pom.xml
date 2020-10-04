@@ -6,17 +6,33 @@
     <groupId>net.shotbow</groupId>
     <artifactId>interestingfish</artifactId>
     <name>InterestingFish</name>
-    <version>1.16.2</version>
+    <!-- Follow Minecraft Versioning wth -${version} if needed -->
+    <version>1.16.3</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
+        <!-- Spigot-API - Needed for Plugin API -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.2-R0.1-SNAPSHOT</version>
+            <version>1.16.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- Adventure-Platform-Bukkit - Needed for Hex Legacy Serialization -->
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-platform-bukkit</artifactId>
+            <version>4.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Adventure-Text-MiniMessage - Needed for MiniMessage Text Formatting -->
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>4.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <repositories>
@@ -24,9 +40,14 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <id>sonatype-oss</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
     <build>
         <finalName>${project.name}</finalName>
+        <!-- Switch this to clean install if using deployment (such as CI) -->
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
@@ -38,10 +59,41 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <configuration>
+                    <minimizeJar>true</minimizeJar>
+                    <relocations>
+                        <relocation>
+                            <pattern>net.kyori.adventure</pattern>
+                            <shadedPattern>net.shotbow.interestingfish.lib.net.kyori.adventure</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.kyori.examination</pattern>
+                            <shadedPattern>net.shotbow.interestingfish.lib.net.kyori.examination</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.checkerframework</pattern>
+                            <shadedPattern>net.shotbow.interestingfish.lib.org.checkerframework</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <resources>
             <resource>
                 <filtering>true</filtering>
+                <!-- Dynamically fill in the plugin yaml with information from POM -->
                 <directory>src/main/resources</directory>
             </resource>
         </resources>

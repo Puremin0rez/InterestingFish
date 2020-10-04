@@ -24,12 +24,12 @@ public class InterestingConfig extends ConfigObject
     public boolean requireLuckEnchant = false;
     public boolean excludeLuckEnchant = false;
     public boolean showItemFrameInfo = true;
-    public String weightLabel = "&bWeight: &f";
+    public String weightLabel = "<aqua>Weight: <white>";
     public String weightUnit = "lbs";
-    public String caughtByLabel = "&6Caught by: &f";
+    public String caughtByLabel = "<gold>Caught by: <white>";
     public boolean caughtByNickname = false;
-    public String dateLabel = "&6";
-    public String dateFormat = "MM/dd/yy hh:mm";
+    public String dateLabel = "<gold>";
+    public String dateFormat = "M/d/yy h:mm aa";
     public List<HashMap<String, Object>> descriptorList = new ArrayList<HashMap<String, Object>>()
     {{
         add(new HashMap<String, Object>()
@@ -37,14 +37,35 @@ public class InterestingConfig extends ConfigObject
             put("minWeightModifier", 5.0);
             put("maxWeightModifier", 20.0);
             put("rollWeight", 1);
-            put("text", "&aBig");
+            put("text", "<green><bold>Big");
         }});
         add(new HashMap<String, Object>()
         {{
             put("minWeightModifier", -20.0);
             put("maxWeightModifier", 0.0);
             put("rollWeight", 1);
-            put("text", "&aTiny");
+            put("text", "<green><italic>Tiny");
+        }});
+        add(new HashMap<String, Object>()
+        {{
+            put("minWeightModifier", 1.0);
+            put("maxWeightModifier", 100.0);
+            put("rollWeight", 1);
+            put("text", "<color:#4B0082>Kyori");
+        }});
+        add(new HashMap<String, Object>()
+        {{
+            put("minWeightModifier", 1.0);
+            put("maxWeightModifier", 100.0);
+            put("rollWeight", 1);
+            put("text", "<rainbow>Rainbow");
+        }});
+        add(new HashMap<String, Object>()
+        {{
+            put("minWeightModifier", 1.0);
+            put("maxWeightModifier", 100.0);
+            put("rollWeight", 1);
+            put("text", "<gradient:purple:blue><underlined>Adventurous");
         }});
     }};
     public List<HashMap<String, Object>> breedsList = new ArrayList<HashMap<String, Object>>()
@@ -54,14 +75,14 @@ public class InterestingConfig extends ConfigObject
             put("minWeightModifier", 1.0);
             put("maxWeightModifier", 20.0);
             put("rollWeight", 1);
-            put("text", "Trout");
+            put("text", "<yellow>Trout");
         }});
         add(new HashMap<String, Object>()
         {{
             put("minWeightModifier", 20.0);
             put("maxWeightModifier", 50.0);
             put("rollWeight", 1);
-            put("text", "Tuna");
+            put("text", "<aqua>Tuna");
         }});
     }};
 

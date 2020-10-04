@@ -4,7 +4,6 @@ import net.shotbow.interestingfish.FishInfoFactory;
 import net.shotbow.interestingfish.config.InterestingConfig;
 import net.shotbow.interestingfish.objects.FishInfo;
 import net.shotbow.interestingfish.utility.ItemUtility;
-import org.bukkit.ChatColor;
 import org.bukkit.Tag;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
@@ -56,17 +55,11 @@ public class FishListener implements Listener
                 ItemUtility.renameItem(fish, fishInfo.getName());
                 ItemUtility.setLore(fish, new ArrayList<String>()
                 {{
-                    add(replaceColorChars(config.weightLabel) + decimalFormat.format(fishInfo.getWeight()) + replaceColorChars(config.weightUnit));
-                    add(replaceColorChars(config.caughtByLabel) + name);
-                    add(replaceColorChars(config.dateLabel) + dateFormat.format(new Date()));
+                    add(fishInfoFactory.parseColors(config.weightLabel + decimalFormat.format(fishInfo.getWeight()) + config.weightUnit));
+                    add(fishInfoFactory.parseColors(config.caughtByLabel + name));
+                    add(fishInfoFactory.parseColors(config.dateLabel + dateFormat.format(new Date())));
                 }});
             }
         }
-    }
-
-
-    private String replaceColorChars(String text)
-    {
-        return text.replace('&', ChatColor.COLOR_CHAR);
     }
 }
