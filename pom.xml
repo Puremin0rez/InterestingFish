@@ -7,7 +7,7 @@
     <artifactId>interestingfish</artifactId>
     <name>InterestingFish</name>
     <!-- Follow Minecraft Versioning wth -${version} if needed -->
-    <version>1.16.3</version>
+    <version>1.16.4</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,7 +17,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.3-R0.1-SNAPSHOT</version>
+            <version>1.16.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!-- Adventure-Platform-Bukkit - Needed for Hex Legacy Serialization -->

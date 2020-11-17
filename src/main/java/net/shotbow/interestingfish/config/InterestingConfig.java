@@ -65,7 +65,7 @@ public class InterestingConfig extends ConfigObject
             put("minWeightModifier", 1.0);
             put("maxWeightModifier", 100.0);
             put("rollWeight", 1);
-            put("text", "<gradient:purple:blue><underlined>Adventurous");
+            put("text", "<gradient:light_purple:blue><underlined>Adventurous");
         }});
     }};
     public List<HashMap<String, Object>> breedsList = new ArrayList<HashMap<String, Object>>()
