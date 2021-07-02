@@ -1,6 +1,6 @@
-name: "${project.name}"
-main: "${project.groupId}.${project.artifactId}.${project.name}"
-version: "${project.version}"
+name: "${name}"
+main: "${group}.interestingfish.${name}"
+version: "${version}"
 api-version: "1.13"
 authors: ["lazertester", "Puremin0rez"]
 website: "https://github.com/Puremin0rez/InterestingFish"
