@@ -34,7 +34,7 @@ public abstract class ConfigObject
         try
         {
             InputStream is = new FileInputStream(file);
-            config = (Map) yaml.load(is);
+            config = yaml.load(is);
         }
         catch (IOException ignored)
         {
@@ -76,13 +76,13 @@ public abstract class ConfigObject
         }
     }
 
-    private <T> T get(String path, T def)
+    private <T> Object get(String path, T def)
     {
         if (!config.containsKey(path))
         {
             save();
         }
-        return (T) config.get(path);
+        return config.get(path);
     }
 
     public void save()
