@@ -40,6 +40,8 @@ public class FishListener implements Listener {
     @EventHandler
     public void onFish(PlayerFishEvent e) {
         if (e.getCaught() instanceof Item && Tag.ITEMS_FISHES.isTagged(((Item) e.getCaught()).getItemStack().getType())) {
+            if (!e.getPlayer().hasPermission("interestingfish.catch"))
+                return;
             if (config.requireLuckEnchant && !ItemUtility.fishingRodHasLuck(e.getPlayer().getInventory()) ||
                     config.excludeLuckEnchant && ItemUtility.fishingRodHasLuck(e.getPlayer().getInventory()))
                 return;
