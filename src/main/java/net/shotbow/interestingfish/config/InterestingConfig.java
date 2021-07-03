@@ -14,8 +14,7 @@ import java.util.List;
  * Time: 1:10 AM
  * (c) lazertester
  */
-public class InterestingConfig extends ConfigObject
-{
+public class InterestingConfig extends ConfigObject {
 
     public double baseWeight = .5;
     public double minWeight = .01;
@@ -30,55 +29,46 @@ public class InterestingConfig extends ConfigObject
     public boolean caughtByNickname = false;
     public String dateLabel = "<gold>";
     public String dateFormat = "M/d/yy h:mm aa";
-    public List<HashMap<String, Object>> descriptorList = new ArrayList<HashMap<String, Object>>()
-    {{
-        add(new HashMap<String, Object>()
-        {{
+    public List<HashMap<String, Object>> descriptorList = new ArrayList<HashMap<String, Object>>() {{
+        add(new HashMap<String, Object>() {{
             put("minWeightModifier", 5.0);
             put("maxWeightModifier", 20.0);
             put("rollWeight", 1);
             put("text", "<green><bold>Big");
         }});
-        add(new HashMap<String, Object>()
-        {{
+        add(new HashMap<String, Object>() {{
             put("minWeightModifier", -20.0);
             put("maxWeightModifier", 0.0);
             put("rollWeight", 1);
             put("text", "<green><italic>Tiny");
         }});
-        add(new HashMap<String, Object>()
-        {{
+        add(new HashMap<String, Object>() {{
             put("minWeightModifier", 1.0);
             put("maxWeightModifier", 100.0);
             put("rollWeight", 1);
             put("text", "<color:#4B0082>Kyori");
         }});
-        add(new HashMap<String, Object>()
-        {{
+        add(new HashMap<String, Object>() {{
             put("minWeightModifier", 1.0);
             put("maxWeightModifier", 100.0);
             put("rollWeight", 1);
             put("text", "<rainbow>Rainbow");
         }});
-        add(new HashMap<String, Object>()
-        {{
+        add(new HashMap<String, Object>() {{
             put("minWeightModifier", 1.0);
             put("maxWeightModifier", 100.0);
             put("rollWeight", 1);
             put("text", "<gradient:light_purple:blue><underlined>Adventurous");
         }});
     }};
-    public List<HashMap<String, Object>> breedsList = new ArrayList<HashMap<String, Object>>()
-    {{
-        add(new HashMap<String, Object>()
-        {{
+    public List<HashMap<String, Object>> breedsList = new ArrayList<HashMap<String, Object>>() {{
+        add(new HashMap<String, Object>() {{
             put("minWeightModifier", 1.0);
             put("maxWeightModifier", 20.0);
             put("rollWeight", 1);
             put("text", "<yellow>Trout");
         }});
-        add(new HashMap<String, Object>()
-        {{
+        add(new HashMap<String, Object>() {{
             put("minWeightModifier", 20.0);
             put("maxWeightModifier", 50.0);
             put("rollWeight", 1);
@@ -86,22 +76,18 @@ public class InterestingConfig extends ConfigObject
         }});
     }};
 
-    public InterestingConfig(String path)
-    {
+    public InterestingConfig(String path) {
         super(path, "config.yml");
     }
 
-    public void initialize()
-    {
+    public void initialize() {
         super.initialize();
         InterestingFish.log("Initialized with " + descriptorList.size() + " descriptors");
     }
 
-    public Iterable<Descriptor> getDescriptors()
-    {
-        List<Descriptor> descriptors = new ArrayList<Descriptor>();
-        for (HashMap<String, Object> map : descriptorList)
-        {
+    public Iterable<Descriptor> getDescriptors() {
+        List<Descriptor> descriptors = new ArrayList<>();
+        for (HashMap<String, Object> map : descriptorList) {
             Descriptor descriptor = new Descriptor();
             descriptor.setText((String) map.get("text"));
             descriptor.setMinWeightModifier((Double) map.get("minWeightModifier"));
@@ -112,11 +98,9 @@ public class InterestingConfig extends ConfigObject
         return descriptors;
     }
 
-    public Iterable<Breed> getBreeds()
-    {
-        List<Breed> breeds = new ArrayList<Breed>();
-        for (HashMap<String, Object> map : breedsList)
-        {
+    public Iterable<Breed> getBreeds() {
+        List<Breed> breeds = new ArrayList<>();
+        for (HashMap<String, Object> map : breedsList) {
             Breed breed = new Breed();
             breed.setText((String) map.get("text"));
             breed.setMinWeightModifier((Double) map.get("minWeightModifier"));

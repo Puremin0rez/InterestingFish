@@ -15,36 +15,27 @@ import org.bukkit.inventory.ItemStack;
  * Time: 1:47 AM
  * (c) lazertester
  */
-public class InteractListener implements Listener
-{
+public class InteractListener implements Listener {
 
-    private InterestingConfig config;
+    private final InterestingConfig config;
 
-    public InteractListener(InterestingConfig config)
-    {
+    public InteractListener(InterestingConfig config) {
         this.config = config;
     }
 
     @EventHandler
-    public void onFish(PlayerInteractEntityEvent e)
-    {
-        if (config.showItemFrameInfo && e.getRightClicked() instanceof ItemFrame)
-        {
+    public void onFish(PlayerInteractEntityEvent e) {
+        if (config.showItemFrameInfo && e.getRightClicked() instanceof ItemFrame) {
             final ItemStack item = ((ItemFrame) e.getRightClicked()).getItem();
-            if (item != null && Tag.ITEMS_FISHES.isTagged(item.getType()) && !e.getPlayer().isSneaking())
-            {
+            if (item != null && Tag.ITEMS_FISHES.isTagged(item.getType()) && !e.getPlayer().isSneaking()) {
                 e.setCancelled(true);
                 final Player player = e.getPlayer();
-                if (item.hasItemMeta())
-                {
-                    if (item.getItemMeta().hasDisplayName())
-                    {
+                if (item.hasItemMeta()) {
+                    if (item.getItemMeta().hasDisplayName()) {
                         player.sendMessage(item.getItemMeta().getDisplayName());
                     }
-                    if (item.getItemMeta().hasLore())
-                    {
-                        for (String lore : item.getItemMeta().getLore())
-                        {
+                    if (item.getItemMeta().hasLore()) {
+                        for (String lore : item.getItemMeta().getLore()) {
                             player.sendMessage(lore);
                         }
                     }

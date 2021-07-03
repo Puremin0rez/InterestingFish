@@ -15,35 +15,27 @@ import java.util.List;
  * Time: 9:44 PM
  * (c) lazertester
  */
-public class ItemUtility
-{
+public class ItemUtility {
 
-    public static ItemStack renameItem(ItemStack item, String newName)
-    {
+    public static void renameItem(ItemStack item, String newName) {
         final ItemMeta itemMeta = item.getItemMeta();
         itemMeta.setDisplayName(ChatColor.RESET + newName);
         item.setItemMeta(itemMeta);
-        return item;
     }
 
-    public static void setLore(ItemStack item, List<String> lore)
-    {
+    public static void setLore(ItemStack item, List<String> lore) {
         ItemMeta meta = item.getItemMeta();
         meta.setLore(lore);
         item.setItemMeta(meta);
     }
 
-    public static boolean fishingRodHasLuck(PlayerInventory inventory)
-    {
+    public static boolean fishingRodHasLuck(PlayerInventory inventory) {
         ItemStack item = inventory.getItemInMainHand();
-        if (item.getType() != Material.FISHING_ROD)
-        {
+        if (item.getType() != Material.FISHING_ROD) {
             item = inventory.getItemInOffHand();
         }
-        if (item.getType() == Material.FISHING_ROD)
-        {
-            if (item.hasItemMeta())
-            {
+        if (item.getType() == Material.FISHING_ROD) {
+            if (item.hasItemMeta()) {
                 return item.getItemMeta().hasEnchant(Enchantment.LUCK);
             }
         }

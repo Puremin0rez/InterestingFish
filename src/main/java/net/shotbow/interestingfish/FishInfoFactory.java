@@ -19,32 +19,28 @@ import java.util.Random;
  * Time: 1:21 AM
  * (c) lazertester
  */
-public class FishInfoFactory
-{
+public class FishInfoFactory {
 
-    private List<String> weightedDescriptors = new ArrayList<String>();
-    private HashMap<String, Descriptor> descriptorIndex = new HashMap<String, Descriptor>();
+    private final List<String> weightedDescriptors = new ArrayList<>();
+    private final HashMap<String, Descriptor> descriptorIndex = new HashMap<>();
 
-    private List<String> weightedBreeds = new ArrayList<String>();
-    private HashMap<String, Breed> breedIndex = new HashMap<String, Breed>();
+    private final List<String> weightedBreeds = new ArrayList<>();
+    private final HashMap<String, Breed> breedIndex = new HashMap<>();
 
-    private Random random = new Random();
-    private InterestingConfig config;
+    private final Random random = new Random();
+    private final InterestingConfig config;
 
     private final MiniMessage miniMessage = MiniMessage.get();
     private final LegacyComponentSerializer legacyHexSerializer = LegacyComponentSerializer.builder().hexColors().useUnusualXRepeatedCharacterHexFormat().build();
 
-    public FishInfoFactory(InterestingConfig config)
-    {
+    public FishInfoFactory(InterestingConfig config) {
         this.config = config;
-        for (Descriptor descriptor : config.getDescriptors())
-        {
+        for (Descriptor descriptor : config.getDescriptors()) {
             descriptorIndex.put(descriptor.getText(), descriptor);
             for (int i = 0; i <= descriptor.getRollWeight(); i++)
                 weightedDescriptors.add(descriptor.getText());
         }
-        for (Breed breed : config.getBreeds())
-        {
+        for (Breed breed : config.getBreeds()) {
             breedIndex.put(breed.getText(), breed);
             for (int i = 0; i <= breed.getRollWeight(); i++)
                 weightedBreeds.add(breed.getText());
@@ -53,12 +49,10 @@ public class FishInfoFactory
 
     }
 
-    public FishInfo makeNewFishInfo()
-    {
+    public FishInfo makeNewFishInfo() {
         StringBuilder nameBuilder = new StringBuilder();
         double weight = config.baseWeight;
-        if (random.nextInt(100) < config.percentDescriptorChance)
-        {
+        if (random.nextInt(100) < config.percentDescriptorChance) {
             Descriptor descriptor = descriptorIndex.get(weightedDescriptors.get(random.nextInt(weightedDescriptors.size())));
             nameBuilder.append(parseColors(descriptor.getText())).append(ChatColor.RESET).append(" ");
             weight += descriptor.getMinWeightModifier() + random.nextDouble() * descriptor.getMaxWeightModifier() - descriptor.getMinWeightModifier();
@@ -71,8 +65,7 @@ public class FishInfoFactory
         return new FishInfo(nameBuilder.toString(), weight);
     }
 
-    public String parseColors(String text)
-    {
+    public String parseColors(String text) {
         return legacyHexSerializer.serialize(miniMessage.parse(text.replace('&', ChatColor.COLOR_CHAR)));
     }
 

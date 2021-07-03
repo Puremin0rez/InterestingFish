@@ -6,24 +6,20 @@ package net.shotbow.interestingfish.objects;
  * Time: 1:27 AM
  * (c) lazertester
  */
-public class FishInfo
-{
-    private String name;
-    private double weight;
+public class FishInfo {
+    private final String name;
+    private final double weight;
 
-    public FishInfo(String name, double weight)
-    {
+    public FishInfo(String name, double weight) {
         this.name = name;
         this.weight = weight;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public double getWeight()
-    {
+    public double getWeight() {
         return weight;
     }
 }

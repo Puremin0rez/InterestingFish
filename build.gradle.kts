@@ -51,7 +51,7 @@ tasks {
 
     register<ConfigureShadowRelocation>("configureShadowRelocation") {
         target = shadowJar.get()
-        prefix = "${project.group}.${project.name}.libraries"
+        prefix = "${project.group}.${project.name.toLowerCase()}.libraries"
     }
 
     build {
