@@ -1,8 +1,10 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("java")
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    kotlin("jvm") version "1.5.20"
+    id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 group = "net.shotbow"
@@ -24,6 +26,7 @@ dependencies {
     compileOnly(group = "org.spigotmc", name = "spigot-api", version = "1.13-R0.1-SNAPSHOT")
     implementation(group = "net.kyori", name = "adventure-platform-bukkit", version = "4.0.1")
     implementation(group = "net.kyori", name = "adventure-text-minimessage", version = "4.1.0-SNAPSHOT")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 defaultTasks("clean", "build")
@@ -56,5 +59,11 @@ tasks {
 
     build {
         dependsOn(shadowJar).dependsOn("configureShadowRelocation")
+    }
+
+    withType<KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
     }
 }
