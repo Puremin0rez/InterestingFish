@@ -11,8 +11,8 @@ import org.bukkit.ChatColor
 import kotlin.random.Random
 
 class FishInfoFactory(private val config: InterestingConfig) {
-    private val weightedDescriptors: Array<Descriptor> = config.descriptors.toWeightedArray()
-    private val weightedBreeds: Array<Breed> = config.breeds.toWeightedArray()
+    private val weightedDescriptors: Array<Descriptor> = config.descriptorList.toWeightedArray()
+    private val weightedBreeds: Array<Breed> = config.breedsList.toWeightedArray()
 
     fun makeNewFishInfo(): FishInfo {
         val breed = weightedBreeds.random()

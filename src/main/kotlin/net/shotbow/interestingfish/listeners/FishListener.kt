@@ -41,7 +41,7 @@ class FishListener(
                 val fish = caught.itemStack
 
                 fish.meta {
-                    displayName = name1
+                    setDisplayName(name1)
                     lore = listOf(
                         (config.weightLabel + decimalFormat.format(weight) + config.weightUnit).withColors(),
                         (config.caughtByLabel + name).withColors(),

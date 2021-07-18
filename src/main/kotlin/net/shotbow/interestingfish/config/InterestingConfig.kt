@@ -1,107 +1,66 @@
 package net.shotbow.interestingfish.config
 
-import net.shotbow.interestingfish.InterestingFish.Companion.log
 import net.shotbow.interestingfish.models.Breed
 import net.shotbow.interestingfish.models.Descriptor
 
-class InterestingConfig(path: String?) : ConfigObject(path, "config.yml") {
-    @JvmField
-    var baseWeight = .5
-    @JvmField
-    var minWeight = .01
-    @JvmField
-    var percentDescriptorChance = 75.0
-    @JvmField
-    var percentBreedsChance = 100.0
-    @JvmField
-    var requireLuckEnchant = false
-    @JvmField
-    var excludeLuckEnchant = false
-    @JvmField
-    var showItemFrameInfo = true
-    @JvmField
-    var weightLabel = "<aqua>Weight: <white>"
-    @JvmField
-    var weightUnit = "lbs"
-    @JvmField
-    var caughtByLabel = "<gold>Caught by: <white>"
-    @JvmField
-    var caughtByNickname = false
-    @JvmField
-    var dateLabel = "<gold>"
-    @JvmField
-    var dateFormat = "M/d/yy h:mm aa"
-    @JvmField
-    var descriptorList: List<Map<String, Any>> = listOf(
-        mapOf(
-            "minWeightModifier" to 5.0,
-            "maxWeightModifier" to 20.0,
-            "rollWeight" to 1,
-            "text" to "<green><bold>Big",
+data class InterestingConfig(
+    val baseWeight: Double = .5,
+    val minWeight: Double = .01,
+    val percentDescriptorChance: Double = 75.0,
+    val percentBreedsChance: Double = 100.0,
+    val requireLuckEnchant: Boolean = false,
+    val excludeLuckEnchant: Boolean = false,
+    val showItemFrameInfo: Boolean = true,
+    val weightLabel: String = "<aqua>Weight: <white>",
+    val weightUnit: String = "lbs",
+    val caughtByLabel: String = "<gold>Caught by: <white>",
+    val caughtByNickname: Boolean = false,
+    val dateLabel: String = "<gold>",
+    val dateFormat: String = "M/d/yy h:mm aa",
+    val descriptorList: List<Descriptor> = listOf(
+        Descriptor(
+            text = "<green><bold>Big",
+            minWeightModifier = 5.0,
+            maxWeightModifier = 20.0,
+            rollWeight = 1
         ),
-        mapOf(
-            "minWeightModifier" to -20.0,
-            "maxWeightModifier" to 0.0,
-            "rollWeight" to 1,
-            "text" to "<green><italic>Tiny",
+        Descriptor(
+            text = "<green><italic>Tiny",
+            minWeightModifier = -20.0,
+            maxWeightModifier = 0.0,
+            rollWeight = 1
         ),
-        mapOf(
-            "minWeightModifier" to 1.0,
-            "maxWeightModifier" to 100.0,
-            "rollWeight" to 1,
-            "text" to "<color:#4B0082>Kyori",
+        Descriptor(
+            text = "<color:#4B0082>Kyori",
+            minWeightModifier = 1.0,
+            maxWeightModifier = 100.0,
+            rollWeight = 1
         ),
-        mapOf(
-            "minWeightModifier" to 1.0,
-            "maxWeightModifier" to 100.0,
-            "rollWeight" to 1,
-            "text" to "<rainbow>Rainbow",
+        Descriptor(
+            text = "<rainbow>Rainbow",
+            minWeightModifier = 1.0,
+            maxWeightModifier = 100.0,
+            rollWeight = 1
         ),
-        mapOf(
-            "minWeightModifier" to 1.0,
-            "maxWeightModifier" to 100.0,
-            "rollWeight" to 1,
-            "text" to "<gradient:light_purple:blue><underlined>Adventurous",
+        Descriptor(
+            text = "<gradient:light_purple:blue><underlined>Adventurous",
+            minWeightModifier = 1.0,
+            maxWeightModifier = 100.0,
+            rollWeight = 1
         ),
-    )
-    @JvmField
-    var breedsList: List<Map<String, Any>> = listOf(
-        mapOf(
-            "minWeightModifier" to 1.0,
-            "maxWeightModifier" to 20.0,
-            "rollWeight" to 1,
-            "text" to "<yellow>Trout"
+    ),
+    val breedsList: List<Breed> = listOf(
+        Breed(
+            text = "<yellow>Trout",
+            minWeightModifier = 1.0,
+            maxWeightModifier = 20.0,
+            rollWeight = 1
         ),
-        mapOf(
-            "minWeightModifier" to 20.0,
-            "maxWeightModifier" to 50.0,
-            "rollWeight" to 1,
-            "text" to "<aqua>Tuna"
+        Breed(
+            text = "<aqua>Tuna",
+            minWeightModifier = 20.0,
+            maxWeightModifier = 50.0,
+            rollWeight = 1
         )
     )
-
-    override fun initialize() {
-        super.initialize()
-        log("Initialized with " + descriptorList.size + " descriptors")
-    }
-
-    val descriptors: Iterable<Descriptor>
-        get() = descriptorList.map {
-            Descriptor(
-                text = it["text"] as String,
-                minWeightModifier = it["minWeightModifier"] as Double,
-                maxWeightModifier = it["maxWeightModifier"] as Double,
-                rollWeight = it["rollWeight"] as Int
-            )
-        }
-
-    val breeds: Iterable<Breed>
-        get() = breedsList.map {
-            Breed(
-                text = it["text"] as String,
-                minWeightModifier = it["minWeightModifier"] as Double,
-                maxWeightModifier = it["maxWeightModifier"] as Double,
-                rollWeight = it["rollWeight"] as Int
-            )
-        }
-}
+)

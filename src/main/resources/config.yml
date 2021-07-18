@@ -1,0 +1,43 @@
+baseWeight: 0.5
+minWeight: 0.01
+percentDescriptorChance: 75.0
+percentBreedsChance: 100.0
+requireLuckEnchant: false
+excludeLuckEnchant: false
+showItemFrameInfo: true
+weightLabel: '<aqua>Weight: <white>'
+weightUnit: lbs
+caughtByLabel: '<gold>Caught by: <white>'
+caughtByNickname: false
+dateLabel: <gold>
+dateFormat: M/d/yy h:mm aa
+descriptorList:
+- minWeightModifier: 5.0
+  maxWeightModifier: 20.0
+  rollWeight: 1
+  text: <green><bold>Big
+- minWeightModifier: -20.0
+  maxWeightModifier: 0.0
+  rollWeight: 1
+  text: <green><italic>Tiny
+- minWeightModifier: 1.0
+  maxWeightModifier: 100.0
+  rollWeight: 1
+  text: <color:#4B0082>Kyori
+- minWeightModifier: 1.0
+  maxWeightModifier: 100.0
+  rollWeight: 1
+  text: <rainbow>Rainbow
+- minWeightModifier: 1.0
+  maxWeightModifier: 100.0
+  rollWeight: 1
+  text: <gradient:light_purple:blue><underlined>Adventurous
+breedsList:
+- minWeightModifier: 1.0
+  maxWeightModifier: 20.0
+  rollWeight: 1
+  text: <yellow>Trout
+- minWeightModifier: 20.0
+  maxWeightModifier: 50.0
+  rollWeight: 1
+  text: <aqua>Tuna

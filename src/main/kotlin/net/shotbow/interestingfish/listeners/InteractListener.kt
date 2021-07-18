@@ -14,15 +14,16 @@ class InteractListener(private val config: InterestingConfig) : Listener {
 
         if (config.showItemFrameInfo && rightClicked is ItemFrame) {
             val item = rightClicked.item
-            if (item != null && item.isFish() && !e.player.isSneaking) {
+            if (item.isFish() && !e.player.isSneaking) {
                 e.isCancelled = true
 
                 if (item.hasItemMeta()) {
-                    if (item.itemMeta.hasDisplayName()) {
-                        e.player.sendMessage(item.itemMeta.displayName)
+                    val itemMeta = item.itemMeta!!
+                    if (itemMeta.hasDisplayName()) {
+                        e.player.sendMessage(itemMeta.displayName)
                     }
-                    if (item.itemMeta.hasLore()) {
-                        for (lore in item.itemMeta.lore) {
+                    if (itemMeta.hasLore()) {
+                        for (lore in itemMeta.lore!!) {
                             e.player.sendMessage(lore)
                         }
                     }
