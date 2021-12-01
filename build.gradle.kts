@@ -1,12 +1,12 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 
 plugins {
-    id("java-library")
-    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("java")
+    id("com.github.johnrengelman.shadow") version "7.1.0"
 }
 
 group = "net.shotbow"
-version = "1.17"
+version = "1.18"
 
 java {
     toolchain {
@@ -22,7 +22,7 @@ repositories {
 
 dependencies {
     compileOnly(group = "org.spigotmc", name = "spigot-api", version = "1.13-R0.1-SNAPSHOT")
-    implementation(group = "net.kyori", name = "adventure-platform-bukkit", version = "4.0.0-SNAPSHOT")
+    implementation(group = "net.kyori", name = "adventure-platform-bukkit", version = "4.0.1")
     implementation(group = "net.kyori", name = "adventure-text-minimessage", version = "4.1.0-SNAPSHOT")
 }
 
