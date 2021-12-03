@@ -1,6 +1,6 @@
 # InterestingFish
 
-**Compatible with Minecraft 1.13+ (Tested on Minecraft 1.17)**
+**Compatible with Minecraft 1.13+ (Tested on Minecraft 1.18)**
 
 This is a continuation / maintained version of the original plugin created by lazertester from Shotbow network.
 The original has not been updated since 2013.
@@ -45,9 +45,8 @@ You can compile it by running the following command in the project directory:
 ## Can I use your code?
 
 The original project was released with the "do whatever the **** you want" license.
-I like it, so I've opted for a more official license of [MIT](LICENSE.md)
 
-Basically, yeah, do whatever you'd like. Giving credit would be appreciated :)
+This project is licensed as [GPL-3.0](LICENSE) and may be used in any way that respects the aforementioned license.
 
 ## Acknowledgements
 
