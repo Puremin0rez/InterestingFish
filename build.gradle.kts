@@ -24,7 +24,7 @@ repositories {
 dependencies {
     compileOnly(group = "org.spigotmc", name = "spigot-api", version = "1.17.1-R0.1-SNAPSHOT")
     implementation(group = "net.kyori", name = "adventure-platform-bukkit", version = "4.1.0")
-    implementation(group = "net.kyori", name = "adventure-text-minimessage", version = "4.1.0")
+    implementation(group = "net.kyori", name = "adventure-text-minimessage", version = "4.10.1")
     implementation(group = "com.uchuhimo", name = "konf", version = "1.1.2")
     runtimeOnly(kotlin("reflect"))
 }

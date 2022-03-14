@@ -34,7 +34,7 @@ class FishInfoFactory(private val config: InterestingConfig) {
             LegacyComponentSerializer.builder().hexColors().useUnusualXRepeatedCharacterHexFormat().build()
 
         fun String.withColors() =
-            legacyHexSerializer.serialize(MiniMessage.get().parse(replace('&', ChatColor.COLOR_CHAR)))
+            legacyHexSerializer.serialize(MiniMessage.miniMessage().deserialize(replace('&', ChatColor.COLOR_CHAR)))
 
         fun Iterable<FishModifier>.toWeightedArray() =
             flatMap { modifier -> Array(modifier.rollWeight) { modifier }.toList() }.toTypedArray()
