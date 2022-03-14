@@ -1,8 +1,9 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("java")
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    kotlin("jvm") version "1.6.10"
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "net.shotbow"
@@ -10,7 +11,7 @@ version = "1.18"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(11))
     }
 }
 
@@ -21,14 +22,21 @@ repositories {
 }
 
 dependencies {
-    compileOnly(group = "org.spigotmc", name = "spigot-api", version = "1.13-R0.1-SNAPSHOT")
-    implementation(group = "net.kyori", name = "adventure-platform-bukkit", version = "4.0.1")
-    implementation(group = "net.kyori", name = "adventure-text-minimessage", version = "4.1.0-SNAPSHOT")
+    compileOnly(group = "org.spigotmc", name = "spigot-api", version = "1.17.1-R0.1-SNAPSHOT")
+    implementation(group = "net.kyori", name = "adventure-platform-bukkit", version = "4.1.0")
+    implementation(group = "net.kyori", name = "adventure-text-minimessage", version = "4.10.1")
+    implementation(group = "com.uchuhimo", name = "konf", version = "1.1.2")
+    runtimeOnly(kotlin("reflect"))
 }
 
 defaultTasks("clean", "build")
 
 tasks {
+    wrapper {
+        gradleVersion = "7.4.1"
+        distributionType = Wrapper.DistributionType.ALL
+    }
+
     processResources {
         val placeholders = mapOf(
             "name" to project.name,
@@ -45,16 +53,23 @@ tasks {
     }
 
     shadowJar {
+        dependencies {
+            include(dependency("net.kyori:.*"))
+        }
+
+        relocate("net.kyori", "${project.group}.${project.name.toLowerCase()}.libraries.net.kyori")
+
         minimize()
         archiveFileName.set("${project.name}.jar")
     }
 
-    register<ConfigureShadowRelocation>("configureShadowRelocation") {
-        target = shadowJar.get()
-        prefix = "${project.group}.${project.name.toLowerCase()}.libraries"
+    build {
+        dependsOn(shadowJar)
     }
 
-    build {
-        dependsOn(shadowJar).dependsOn("configureShadowRelocation")
+    withType<KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
     }
 }

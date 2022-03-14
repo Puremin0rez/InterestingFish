@@ -1,10 +1,14 @@
 name: "${name}"
 main: "${group}.interestingfish.${name}"
 version: "${version}"
-api-version: "1.13"
+api-version: "1.17"
 authors: ["lazertester", "Puremin0rez"]
 website: "https://github.com/Puremin0rez/InterestingFish"
-description: "Allow your players to catch fish with style - adds fancy names, weights and catch information to caught fish. "
+description: "Allow your players to catch fish with style - adds fancy names, weights and catch information to caught fish."
+libraries:
+  - com.uchuhimo:konf:1.1.2
+  - org.jetbrains.kotlin:kotlin-reflect:1.5.21
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21
 permissions:
   interestingfish.catch:
     description: Controls a players ability to catch a fish and have it be interesting.
