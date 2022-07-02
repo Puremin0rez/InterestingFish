@@ -30,7 +30,7 @@ public class FishInfoFactory {
     private final Random random = new Random();
     private final InterestingConfig config;
 
-    private final MiniMessage miniMessage = MiniMessage.get();
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
     private final LegacyComponentSerializer legacyHexSerializer = LegacyComponentSerializer.builder().hexColors().useUnusualXRepeatedCharacterHexFormat().build();
 
     public FishInfoFactory(InterestingConfig config) {
@@ -66,7 +66,7 @@ public class FishInfoFactory {
     }
 
     public String parseColors(String text) {
-        return legacyHexSerializer.serialize(miniMessage.parse(text.replace('&', ChatColor.COLOR_CHAR)));
+        return legacyHexSerializer.serialize(miniMessage.deserialize(text.replace('&', ChatColor.COLOR_CHAR)));
     }
 
 }
