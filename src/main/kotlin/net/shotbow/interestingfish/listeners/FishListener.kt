@@ -1,11 +1,11 @@
 package net.shotbow.interestingfish.listeners
 
 import net.shotbow.interestingfish.FishInfoFactory
-import net.shotbow.interestingfish.FishInfoFactory.Companion.withColors
 import net.shotbow.interestingfish.config.InterestingConfig
 import net.shotbow.interestingfish.util.ItemUtility
 import net.shotbow.interestingfish.util.ItemUtility.isFish
 import net.shotbow.interestingfish.util.ItemUtility.meta
+import net.shotbow.interestingfish.util.TextUtility.withColors
 import org.bukkit.ChatColor
 import org.bukkit.entity.Item
 import org.bukkit.event.EventHandler
@@ -46,7 +46,7 @@ class FishListener(
                     setDisplayName("${ChatColor.RESET}$fishName")
                     lore = listOf(
                         (config.weightLabel + decimalFormat.format(weight) + config.weightUnit).withColors(),
-                        (config.caughtByLabel + playerName).withColors(),
+                        config.caughtByLabel.withColors(playerName),
                         (config.dateLabel + dateFormat.format(Date())).withColors()
                     )
                 }

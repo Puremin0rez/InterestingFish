@@ -3,6 +3,8 @@ package net.shotbow.interestingfish.config
 import net.shotbow.interestingfish.models.Breed
 import net.shotbow.interestingfish.models.Descriptor
 import net.shotbow.interestingfish.models.FishModifier
+import net.shotbow.interestingfish.util.TextUtility.hasLegacyCodes
+import net.shotbow.interestingfish.util.TextUtility.legacyToMiniMessage
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin
@@ -28,6 +30,8 @@ data class InterestingConfig(
     val breedsList: List<Breed>,
 ) {
     companion object {
+        private val TEXT_KEYS = listOf("weightLabel", "weightUnit", "caughtByLabel", "dateLabel")
+
         // returns null when the config can't be used
         fun load(plugin: JavaPlugin): InterestingConfig? {
             plugin.saveDefaultConfig() // make sure we have at least a default config file
@@ -57,6 +61,11 @@ data class InterestingConfig(
                 } catch (e: IOException) {
                     plugin.logger.warning("Couldn't add them to config.yml, using their defaults: ${e.message}")
                 }
+            }
+
+            if (migrateLegacyColors(plugin.config)) {
+                plugin.logger.info("Converted legacy color codes in config.yml to MiniMessage")
+                plugin.saveConfig()
             }
 
             return try {
@@ -91,6 +100,11 @@ data class InterestingConfig(
                     warn("$key must be text but is '$value', using the default")
                     defaults.getString(key)!!
                 }
+            }
+
+            fun text(key: String): String = string(key).takeUnless { it.hasLegacyCodes() } ?: run {
+                warn("$key has legacy color codes that couldn't be converted, use MiniMessage instead")
+                defaults.getString(key)!!
             }
 
             fun modifiers(key: String): List<FishModifier> {
@@ -129,15 +143,38 @@ data class InterestingConfig(
                 requireLuckEnchant = boolean("requireLuckEnchant"),
                 excludeLuckEnchant = boolean("excludeLuckEnchant"),
                 showItemFrameInfo = boolean("showItemFrameInfo"),
-                weightLabel = string("weightLabel"),
-                weightUnit = string("weightUnit"),
-                caughtByLabel = string("caughtByLabel"),
+                weightLabel = text("weightLabel"),
+                weightUnit = text("weightUnit"),
+                caughtByLabel = text("caughtByLabel"),
                 caughtByNickname = boolean("caughtByNickname"),
-                dateLabel = string("dateLabel"),
+                dateLabel = text("dateLabel"),
                 dateFormat = dateFormat,
                 descriptorList = modifiers("descriptorList"),
                 breedsList = breeds
             )
+        }
+
+        // converts legacy color codes to minimessage, returns true if anything changed
+        internal fun migrateLegacyColors(config: ConfigurationSection): Boolean {
+            var changed = false
+            for (key in TEXT_KEYS) {
+                val converted = (config.get(key) as? String)?.legacyToMiniMessage() ?: continue
+                config.set(key, converted)
+                changed = true
+            }
+            for (key in listOf("descriptorList", "breedsList")) {
+                val entries = config.get(key) as? List<*> ?: continue
+                val converted = entries.map { entry ->
+                    val text = (entry as? Map<*, *>)?.get("text") as? String
+                    val miniMessage = text?.legacyToMiniMessage() ?: return@map entry
+                    LinkedHashMap<Any?, Any?>(entry).apply { put("text", miniMessage) }
+                }
+                if (converted != entries) {
+                    config.set(key, converted)
+                    changed = true
+                }
+            }
+            return changed
         }
 
         private fun parseModifier(entry: Any?): Result<FishModifier> = runCatching {
@@ -151,6 +188,9 @@ data class InterestingConfig(
 
             val text = entry["text"]
             require(text is String || text is Number) { "text is missing" }
+            require(!text.toString().hasLegacyCodes()) {
+                "text has legacy color codes that couldn't be converted, use MiniMessage instead"
+            }
             val rollWeight = number("rollWeight")
             require(rollWeight % 1 == 0.0 && rollWeight in 0.0..Int.MAX_VALUE.toDouble()) {
                 "rollWeight must be a whole number, 0 or more"
