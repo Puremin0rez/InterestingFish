@@ -6,13 +6,14 @@ import net.shotbow.interestingfish.config.InterestingConfig
 import net.shotbow.interestingfish.util.ItemUtility
 import net.shotbow.interestingfish.util.ItemUtility.isFish
 import net.shotbow.interestingfish.util.ItemUtility.meta
+import org.bukkit.ChatColor
 import org.bukkit.entity.Item
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerFishEvent
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.time.OffsetDateTime
+import java.util.Date
 import java.util.Random
 
 class FishListener(
@@ -36,16 +37,16 @@ class FishListener(
             }
 
             if (random.nextInt(100) < config.percentBreedsChance) {
-                val name = if (config.caughtByNickname) e.player.displayName else e.player.name
-                val (name1, weight) = fishInfoFactory.makeNewFishInfo()
+                val playerName = if (config.caughtByNickname) e.player.displayName else e.player.name
+                val (fishName, weight) = fishInfoFactory.makeNewFishInfo()
                 val fish = caught.itemStack
 
                 fish.meta {
-                    setDisplayName(name1)
+                    setDisplayName("${ChatColor.RESET}$fishName")
                     lore = listOf(
                         (config.weightLabel + decimalFormat.format(weight) + config.weightUnit).withColors(),
-                        (config.caughtByLabel + name).withColors(),
-                        (config.dateLabel + dateFormat.format(OffsetDateTime.now())).withColors()
+                        (config.caughtByLabel + playerName).withColors(),
+                        (config.dateLabel + dateFormat.format(Date())).withColors()
                     )
                 }
             }

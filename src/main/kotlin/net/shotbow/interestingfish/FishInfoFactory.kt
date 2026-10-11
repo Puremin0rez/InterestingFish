@@ -14,6 +14,10 @@ class FishInfoFactory(private val config: InterestingConfig) {
     private val weightedDescriptors: Array<Descriptor> = config.descriptorList.toWeightedArray()
     private val weightedBreeds: Array<Breed> = config.breedsList.toWeightedArray()
 
+    init {
+        InterestingFish.log("${config.descriptorList.size} Descriptors & ${config.breedsList.size} Breeds loaded")
+    }
+
     fun makeNewFishInfo(): FishInfo {
         val breed = weightedBreeds.random()
         var weight = config.baseWeight + breed.weight
