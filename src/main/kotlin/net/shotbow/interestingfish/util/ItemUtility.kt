@@ -15,7 +15,7 @@ object ItemUtility {
     fun ItemStack.isFish() = Tag.ITEMS_FISHES.isTagged(type)
 
     fun fishingRodHasLuck(inventory: PlayerInventory): Boolean =
-        inventory.itemInEitherHand(Material.FISHING_ROD)?.containsEnchantment(Enchantment.LUCK) ?: false
+        inventory.itemInEitherHand(Material.FISHING_ROD)?.containsEnchantment(Enchantment.LUCK_OF_THE_SEA) ?: false
 
     private fun PlayerInventory.itemInEitherHand(material: Material) =
         itemInMainHand.takeIf { it.type == material } ?: itemInOffHand.takeIf { it.type == material }

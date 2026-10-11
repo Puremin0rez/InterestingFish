@@ -16,10 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.random.Random
 
-class FishListener(
-    private val fishInfoFactory: FishInfoFactory,
-    private val config: InterestingConfig
-) : Listener {
+class FishListener(private val fishInfoFactory: FishInfoFactory, private val config: InterestingConfig) : Listener {
     private val dateFormat: SimpleDateFormat = SimpleDateFormat(config.dateFormat)
     private val decimalFormat = DecimalFormat("0.00")
 
@@ -31,8 +28,8 @@ class FishListener(
         if (caught is Item && caught.itemStack.isFish()) {
             if (
                 !e.player.hasPermission("interestingfish.catch") ||
-                config.requireLuckEnchant && !ItemUtility.fishingRodHasLuck(e.player.inventory) ||
-                config.excludeLuckEnchant && ItemUtility.fishingRodHasLuck(e.player.inventory)
+                (config.requireLuckEnchant && !ItemUtility.fishingRodHasLuck(e.player.inventory)) ||
+                (config.excludeLuckEnchant && ItemUtility.fishingRodHasLuck(e.player.inventory))
             ) {
                 return
             }

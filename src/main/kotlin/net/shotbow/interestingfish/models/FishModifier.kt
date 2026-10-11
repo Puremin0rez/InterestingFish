@@ -10,7 +10,7 @@ data class FishModifier(
     val text: String,
     val minWeightModifier: Double,
     val maxWeightModifier: Double,
-    val rollWeight: Int
+    val rollWeight: Int,
 ) : Serializable {
 
     val weight: Double

@@ -1,37 +1,38 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
 plugins {
-    kotlin("jvm") version "1.6.10"
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    kotlin("jvm") version "2.4.21"
+    id("org.jlleitschuh.gradle.ktlint") version "14.2.0"
+    id("com.gradleup.shadow") version "9.6.1"
 }
 
 group = "net.shotbow"
-version = "1.19"
+version = "26.3"
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
+kotlin {
+    jvmToolchain(25)
 }
 
 repositories {
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    maven("https://oss.sonatype.org/content/repositories/snapshots/")
 }
 
 dependencies {
-    compileOnly(group = "org.spigotmc", name = "spigot-api", version = "1.17.1-R0.1-SNAPSHOT")
-    implementation(group = "net.kyori", name = "adventure-platform-bukkit", version = "4.1.1")
-    implementation(group = "net.kyori", name = "adventure-text-minimessage", version = "4.11.0")
+    compileOnly("org.spigotmc:spigot-api:26.3-R0.1-SNAPSHOT")
+    implementation("net.kyori:adventure-text-minimessage:5.2.0")
+    implementation("net.kyori:adventure-text-serializer-legacy:5.2.0")
+}
+
+ktlint {
+    version.set("1.8.0")
 }
 
 defaultTasks("clean", "build")
 
 tasks {
     wrapper {
-        gradleVersion = "7.4.2"
+        gradleVersion = "9.8.1"
         distributionType = Wrapper.DistributionType.ALL
     }
 
@@ -39,8 +40,10 @@ tasks {
         val placeholders = mapOf(
             "name" to project.name,
             "group" to project.group,
-            "version" to project.version
+            "version" to project.version,
+            "kotlinVersion" to getKotlinPluginVersion()
         )
+        inputs.properties(placeholders)
         filesMatching("plugin.yml") {
             expand(placeholders)
         }
@@ -55,7 +58,11 @@ tasks {
             include(dependency("net.kyori:.*"))
         }
 
-        relocate("net.kyori", "${project.group}.${project.name.toLowerCase()}.libraries.net.kyori")
+        filesMatching("META-INF/*.kotlin_module") {
+            duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        }
+
+        relocate("net.kyori", "${project.group}.${project.name.lowercase()}.libraries.net.kyori")
 
         minimize()
         archiveFileName.set("${project.name}.jar")
@@ -63,11 +70,5 @@ tasks {
 
     build {
         dependsOn(shadowJar)
-    }
-
-    withType<KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "11"
-        }
     }
 }
