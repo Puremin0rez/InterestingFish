@@ -1,43 +1,68 @@
-baseWeight: 0.5
-minWeight: 0.01
-percentDescriptorChance: 75.0
+# Text options use MiniMessage formatting: https://docs.papermc.io/adventure/minimessage/format/
+
+# Chance (0-100) that a caught fish becomes an interesting fish
 percentBreedsChance: 100.0
+# Chance (0-100) that an interesting fish also gets a descriptor, like "Big" or "Tiny"
+percentDescriptorChance: 75.0
+# Only make fish interesting when the fishing rod has Luck of the Sea
 requireLuckEnchant: false
+# Only make fish interesting when the fishing rod doesn't have Luck of the Sea
 excludeLuckEnchant: false
-showItemFrameInfo: true
-weightLabel: '<aqua>Weight: <white>'
+
+# Every interesting fish starts at this weight, then its breed and descriptor add to it
+baseWeight: 0.5
+# Fish never weigh less than this
+minWeight: 0.01
+# Shown after the weight
 weightUnit: lbs
+
+# Shown before the weight
+weightLabel: '<aqua>Weight: <white>'
+# Shown before the name of the player who caught the fish
 caughtByLabel: '<gold>Caught by: <white>'
+# Use the player's nickname instead of their username
 caughtByNickname: false
+# Shown before the date the fish was caught
 dateLabel: <gold>
+# See https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/text/SimpleDateFormat.html
 dateFormat: M/d/yy h:mm aa
+
+# Right clicking an item frame with an interesting fish in it shows the fish's info, sneak to rotate it instead
+showItemFrameInfo: true
+
+# Descriptors go in front of the breed, like "Big Trout"
+#   text: the name, with MiniMessage formatting
+#   minWeightModifier and maxWeightModifier: a random weight between these is added to the fish
+#   rollWeight: how likely this one is compared to the others, 0 disables it
 descriptorList:
-- minWeightModifier: 5.0
+- text: <green><bold>Big
+  minWeightModifier: 5.0
   maxWeightModifier: 20.0
   rollWeight: 1
-  text: <green><bold>Big
-- minWeightModifier: -20.0
+- text: <green><italic>Tiny
+  minWeightModifier: -20.0
   maxWeightModifier: 0.0
   rollWeight: 1
-  text: <green><italic>Tiny
-- minWeightModifier: 1.0
+- text: <color:#4B0082>Kyori
+  minWeightModifier: 1.0
   maxWeightModifier: 100.0
   rollWeight: 1
-  text: <color:#4B0082>Kyori
-- minWeightModifier: 1.0
+- text: <rainbow>Rainbow
+  minWeightModifier: 1.0
   maxWeightModifier: 100.0
   rollWeight: 1
-  text: <rainbow>Rainbow
-- minWeightModifier: 1.0
+- text: <gradient:light_purple:blue><underlined>Adventurous
+  minWeightModifier: 1.0
   maxWeightModifier: 100.0
   rollWeight: 1
-  text: <gradient:light_purple:blue><underlined>Adventurous
+
+# Breeds are the name of the fish, every interesting fish gets one. They use the same options as descriptors
 breedsList:
-- minWeightModifier: 1.0
+- text: <yellow>Trout
+  minWeightModifier: 1.0
   maxWeightModifier: 20.0
   rollWeight: 1
-  text: <yellow>Trout
-- minWeightModifier: 20.0
+- text: <aqua>Tuna
+  minWeightModifier: 20.0
   maxWeightModifier: 50.0
   rollWeight: 1
-  text: <aqua>Tuna
