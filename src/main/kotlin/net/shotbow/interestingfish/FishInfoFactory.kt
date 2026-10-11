@@ -8,6 +8,9 @@ import org.bukkit.ChatColor
 import kotlin.random.Random
 
 class FishInfoFactory(private val config: InterestingConfig) {
+    // colored names of every descriptor and breed
+    private val names = (config.descriptorList + config.breedsList).associateWith { it.text.withColors() }
+
     init {
         InterestingFish.log("${config.descriptorList.size} Descriptors & ${config.breedsList.size} Breeds loaded")
     }
@@ -15,12 +18,12 @@ class FishInfoFactory(private val config: InterestingConfig) {
     fun makeNewFishInfo(): FishInfo {
         val breed = config.breedsList.pickWeighted()!!
         var weight = config.baseWeight + breed.weight
-        var name = breed.text.withColors()
+        var name = names.getValue(breed)
 
         if (Random.nextDouble() * 100 < config.percentDescriptorChance) {
             // null when every descriptor has a rollWeight of 0
             config.descriptorList.pickWeighted()?.let { descriptor ->
-                name = "${descriptor.text.withColors()}${ChatColor.RESET} $name"
+                name = "${names.getValue(descriptor)}${ChatColor.RESET} $name"
                 weight += descriptor.weight
             }
         }
