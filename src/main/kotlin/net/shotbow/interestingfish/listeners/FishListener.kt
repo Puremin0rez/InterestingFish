@@ -23,8 +23,10 @@ class FishListener(
     private val dateFormat: SimpleDateFormat = SimpleDateFormat(config.dateFormat)
     private val decimalFormat = DecimalFormat("0.00")
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     fun onFish(e: PlayerFishEvent) {
+        // only new catches, not reeled in items
+        if (e.state != PlayerFishEvent.State.CAUGHT_FISH) return
         val caught = e.caught
         if (caught is Item && caught.itemStack.isFish()) {
             if (
