@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerFishEvent
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Random
+import kotlin.random.Random
 
 class FishListener(
     private val fishInfoFactory: FishInfoFactory,
@@ -22,7 +22,6 @@ class FishListener(
 ) : Listener {
     private val dateFormat: SimpleDateFormat = SimpleDateFormat(config.dateFormat)
     private val decimalFormat = DecimalFormat("0.00")
-    private val random = Random()
 
     @EventHandler
     fun onFish(e: PlayerFishEvent) {
@@ -36,7 +35,7 @@ class FishListener(
                 return
             }
 
-            if (random.nextInt(100) < config.percentBreedsChance) {
+            if (Random.nextDouble() * 100 < config.percentBreedsChance) {
                 val playerName = if (config.caughtByNickname) e.player.displayName else e.player.name
                 val (fishName, weight) = fishInfoFactory.makeNewFishInfo()
                 val fish = caught.itemStack

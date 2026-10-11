@@ -3,31 +3,27 @@ package net.shotbow.interestingfish
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import net.shotbow.interestingfish.config.InterestingConfig
-import net.shotbow.interestingfish.models.Breed
-import net.shotbow.interestingfish.models.Descriptor
 import net.shotbow.interestingfish.models.FishInfo
 import net.shotbow.interestingfish.models.FishModifier
 import org.bukkit.ChatColor
 import kotlin.random.Random
 
 class FishInfoFactory(private val config: InterestingConfig) {
-    private val weightedDescriptors: Array<Descriptor> = config.descriptorList.toWeightedArray()
-    private val weightedBreeds: Array<Breed> = config.breedsList.toWeightedArray()
-
     init {
         InterestingFish.log("${config.descriptorList.size} Descriptors & ${config.breedsList.size} Breeds loaded")
     }
 
     fun makeNewFishInfo(): FishInfo {
-        val breed = weightedBreeds.random()
+        val breed = config.breedsList.pickWeighted()!!
         var weight = config.baseWeight + breed.weight
         var name = breed.text.withColors()
 
-        if (Random.nextInt(100) < config.percentDescriptorChance) {
-            val descriptor = weightedDescriptors.random()
-
-            name = "${descriptor.text.withColors()}${ChatColor.RESET} $name"
-            weight += descriptor.weight
+        if (Random.nextDouble() * 100 < config.percentDescriptorChance) {
+            // null when every descriptor has a rollWeight of 0
+            config.descriptorList.pickWeighted()?.let { descriptor ->
+                name = "${descriptor.text.withColors()}${ChatColor.RESET} $name"
+                weight += descriptor.weight
+            }
         }
 
         return FishInfo(name, weight.coerceAtLeast(config.minWeight))
@@ -40,7 +36,15 @@ class FishInfoFactory(private val config: InterestingConfig) {
         fun String.withColors() =
             legacyHexSerializer.serialize(MiniMessage.miniMessage().deserialize(replace('&', ChatColor.COLOR_CHAR)))
 
-        fun Iterable<FishModifier>.toWeightedArray() =
-            flatMap { modifier -> Array(modifier.rollWeight) { modifier }.toList() }.toTypedArray()
+        // odds are proportional to rollWeight, null if nothing can roll
+        fun List<FishModifier>.pickWeighted(): FishModifier? {
+            val total = sumOf { it.rollWeight.toLong() }
+            if (total == 0L) return null
+            var roll = Random.nextLong(total)
+            return first {
+                roll -= it.rollWeight
+                roll < 0
+            }
+        }
     }
 }
