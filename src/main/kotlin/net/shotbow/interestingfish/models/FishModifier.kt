@@ -14,7 +14,7 @@ data class FishModifier(
 ) : Serializable {
 
     val weight: Double
-        get() = minWeightModifier + Random.nextDouble() * maxWeightModifier - minWeightModifier
+        get() = minWeightModifier + Random.nextDouble() * (maxWeightModifier - minWeightModifier)
 
     companion object {
         private const val serialVersionUID: Long = 1
