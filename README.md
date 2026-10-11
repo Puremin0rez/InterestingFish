@@ -1,6 +1,6 @@
 # InterestingFish
 
-**Compatible with Minecraft 1.17+ (Tested on Minecraft 1.19)**
+**Compatible with Minecraft 26.3+ (Tested on Minecraft 26.3)**
 
 This is a continuation / maintained version of the original plugin created by lazertester from Shotbow network.
 The original has not been updated since 2013.
@@ -14,19 +14,17 @@ behavior.
 ## What's different?
 
 This is a list of everything that has been altered from the original from a users perspective:
-* Full support for Minecraft 1.13+
+* Full support for Minecraft 26.3+
 * Added a configurable chance for breeds (and therefore, interesting fish)
 * Added a configurable option to require luck of the sea enchant on a fishing rod to catch interesting fish
 * Added a configurable option to exclude luck of the sea enchant on a fishing rod to catch interesting fish
 * Added a configurable option to use player nickname instead of username on fish labels
 * Added a configurable option to show fish label when right clicking an item frame
-* Added [MiniMessage support](https://docs.adventure.kyori.net/minimessage/format.html) so that you can use fancy effects and full RGB color for fish descriptors and breeds
+* Added [MiniMessage support](https://docs.papermc.io/adventure/minimessage/format/) so that you can use fancy effects and full RGB color for fish descriptors and breeds
 * Added a permission `interestingfish.catch` (default: true) for controling if a player can catch an interesting fish
-
-Note that due to the flawed configuration system of the plugin, any new config options will reset your existing config.
-Therefore, your existing configs are not directly compatible with this continuation. You can simply merge the new options
-into your existing one. I hope to someday resolve this issue by rewriting how the plugin handles configuration so that
-I can also add comments explaining configuration options.
+* Fixed fish weights ignoring `minWeightModifier`, weights now always land between the min and max modifiers
+* Changed `rollWeight` so that chances are proportional to it, a `rollWeight` of 0 disables that descriptor or breed
+* Rewrote the configuration system with comments explaining every option, new options are added to your existing config and legacy color codes are converted to MiniMessage
 
 ## How do I obtain it?
 
